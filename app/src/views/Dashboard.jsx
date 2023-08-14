@@ -9,6 +9,7 @@ import { RoleTechnician } from "../components/RoleTechnician";
 
 import { HiOutlinePencil } from "react-icons/hi";
 import {AiOutlinePlus} from "react-icons/ai";
+import { Link } from "react-router-dom";
 
 
 const Dashboard = () => {
@@ -58,9 +59,9 @@ const Dashboard = () => {
             
             <div className="flex items-center justify-center p-4 my-8 space-x-24 rounded shadow-md bg-base-300">
               <p>Mensajes</p>
-              <button type="button" className="w-32 h-8 btn btn-primary">
+              <Link to={'/chat'} className="w-32 h-8 btn btn-primary">
                 Leer
-              </button>  
+              </Link>  
             </div>
           </div>
         </div>

@@ -67,7 +67,7 @@ export const StepTwo = () => {
               />
             </label>
             <div
-              className={`absolute border bg-slate-50 w-[15rem] h-auto flex flex-col mt-9 ${
+              className={`absolute z-50 border bg-slate-50 w-[15rem] h-auto flex flex-col mt-9 ${
                 showAutocompleteUser ? "" : "hidden"
               }`}
             >
@@ -114,7 +114,7 @@ export const StepTwo = () => {
             </div>
           </div>
 
-          <div className="h-[42vh] w-[100%] sm:w-[90%] flex flex-col gap-2 p-2 overflow-y-auto">
+          <div className="h-[42vh] w-[100%] sm:w-[90%] flex flex-col gap-2 p-2 overflow-y-auto overflow-x-hidden">
             {members.map((member) => {
               return (
                 <CardUserBand

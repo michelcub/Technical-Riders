@@ -1,33 +1,49 @@
-
+import { useState, useEffect } from 'react';
 import {GrSend} from 'react-icons/gr'
-
+import {AiOutlineArrowLeft} from 'react-icons/ai'
 import useChat from '../../context/ChatContext';
 
 
 export const Chat = () => {
+    const [showChat, setShowChat] = useState(false)
+
+    const {store:storeChat, actions: actionsChat} = useChat()
+    const {selectConversation} = storeChat
+    const {setSelectConversation} = actionsChat 
+    const [toUser, setToUser] = useState(null)
+    console.log(selectConversation)
+    console.log(toUser)
 
 
-    const {store, actions} = useChat()
-
+    useEffect(() => {
+    if(selectConversation !== null){
+        if(showChat===false){
+            
+            setShowChat(prev => !prev)
+        }
+        if(selectConversation == ''|| selectConversation == null){
+            return
+        }
+        if(toUser !== JSON.parse(selectConversation)){
+        setToUser(JSON.parse(selectConversation))
+    }
+}
+},[selectConversation])
+        
     
-    
-
-    
-
-
-//     pb.collection('messages').unsubscribe('RECORD_ID'); // remove all 'RECORD_ID' subscriptions
-//     pb.collection('messages').unsubscribe('*'); // remove all '*' topic subscriptions
-//  pb.collection('messages').unsubscribe(); // remove all subscriptions in the collection
-
-
-
-    
-    return (
-        <section className="h-full p-2 w-[80%] ">
+     return (
+        <section className={`h-full p-2 w-[100%] absolute md:w-[80%] md:relative ${showChat?'':'hidden'}`}>
             <div className="w-full h-full rounded-xl bg-slate-50/5">
                 <div className="w-full h-full">
-                    <div className="w-full h-[90%] p-3">
-                        <span className='p-4'>user</span>
+                    
+                    <div className='flex p-1'>
+                    <button className='p-2 me-auto'><AiOutlineArrowLeft/></button>
+                    <span className='flex items-center p-2'>{toUser?.name}</span>
+                    {toUser?.img!==''?<img src={toUser?.img} alt="" />:<div className="flex items-center justify-center w-10 h-10 text-2xl text-black rounded bg-slate-50/10 bg-slate-300">{toUser?.name.charAt(0).toUpperCase()}</div>}
+            
+                    </div>
+                    <div className="w-full h-[80%] p-3">
+                        
                         <div className='w-full h-full'>
                         <div className="chat chat-start">
                             <div className="text-black chat-bubble bg-slate-300 w-[40%]">It's over Anakin, <br/>I have the high ground.</div>

@@ -7,6 +7,7 @@ import { useState } from "react";
 
 
 import getUserByUserName from "../services/getUserByUserName";
+import { toast } from 'react-hot-toast';
 
 
 const ChatContext = createContext();
@@ -17,7 +18,11 @@ export const ChatProvider = ({ children }) => {
 
 
     const [listFindUser, setListFindUser] = useState([]);
-    const [listChatByMyUser, setListChatByMyUser] = useState([]);
+    const [listChatByMyUser, setListChatByMyUser] = useState(null);
+    const [selectConversation, setSelectConversation] = useState(null);
+    const [listMessagesByConversation, setListMessagesByConversation] = useState(null);
+
+
 
 
 
@@ -27,15 +32,19 @@ export const ChatProvider = ({ children }) => {
     const pb = new PocketBase('https://rider.pockethost.io');
 
 
-    const createConversation = async (myUser=null, to_user=null) => {
+    const createConversation = async (myUserId=null, toUserId=null, myUserName=null, toUserName=null, img1='', img2='') => {
         try{
-            if(myUser ===null || to_user === null){
+            if(myUserId ===null || toUserId === null || myUserName === null || toUserName === null){
                 return
             }
             
             const conversation = await pb.collection('conversations').create({
-                user_id1: myUser,
-                user_id2: to_user,
+                user_id1: myUserId,
+                user_id2: toUserId,
+                username1: myUserName,
+                username2: toUserName,
+                img1: img1,
+                img2: img2, 
             });
             console.log(conversation);
 
@@ -47,19 +56,24 @@ export const ChatProvider = ({ children }) => {
     
 
     const subscribtions = async () => {
-        await pb.collection('messages').subscribe('*', function (e) {
-            console.log(e.action);
-            console.log(e.record);
-        });
-
-        await pb.collection('conversations').subscribe('*', function (e) {
-            console.log(e.action);
-            console.log(e.record);
-        });
-        const resultList = await pb.collection('conversations').getList(1, 50, {
-            filter: `user_id1 = ${myUser.id} || user_id2 = ${myUser.id}`,
-        });
-        await setListChatByMyUser(resultList);
+        try{
+            await pb.collection('messages').subscribe('*', function (e) {
+                console.log(e.action);
+                console.log(e.record);
+            });
+    
+            await pb.collection('conversations').subscribe('*', function (e) {
+                console.log(e.action);
+                console.log(e.record);
+            });
+            const resultList = await pb.collection('conversations').getList(1, 50, {
+                filter: `user_id1 = ${myUser.id} || user_id2 = ${myUser.id}`,
+            });
+            await setListChatByMyUser(resultList);
+        }catch(error){
+            console.log(error)
+        }
+        
     }
     subscribtions()
 
@@ -88,10 +102,27 @@ export const ChatProvider = ({ children }) => {
         try{
             const {id} = e.target.parentNode.parentNode;
             const to_user = listFindUser.find((user) => parseInt(user.user.id) === parseInt(id));
+            if(to_user.user.id === myUser.id){
+                toast.error('No puedes chatear contigo mismo');
+                return 
+            }
             
-            createConversation(parseInt(myUser.id),parseInt(to_user.user.id))
+            const response = createConversation(parseInt(myUser.id),parseInt(to_user.user.id), myUser.username, to_user.user.username, myUser.img, to_user.user.img)
+            console.log(response)
+            
+        }catch(error){
+            console.log(error)
+        }
+    }
 
+    const handleSelectChat = (e) => {
+        try{
+            const {id} = e.target.parentNode.parentNode;
             
+            setSelectConversation(id);
+            //getMessagesByConversation(conversation.id)
+
+            console.log(selectConversation.json())
         }catch(error){
             console.log(error)
         }
@@ -99,17 +130,20 @@ export const ChatProvider = ({ children }) => {
    
     
 
-    console.log(listChatByMyUser)
-   
+    
 
     const store = {
-       listFindUser
+        myUser,
+       listFindUser,
+       listChatByMyUser,
+        selectConversation,
 
     }
 
     const actions = {
         handleFindUserByUserName,
         handleCreateChat,
+        handleSelectChat
 
     }
     

@@ -7,7 +7,7 @@ export const Contacts = () => {
 
     const {store: storeChat, actions: actionsChat} = useChat()
     
-
+    console.log(storeChat?.listChatByMyUser)
     return (
         <section className="w-[100%] md:w-[45%] lg:w-[30%] xl:w-[20%] full h-full p-2 overflow-hidden">
             <div className="w-full h-full rounded-xl bg-slate-50/5">
@@ -22,8 +22,11 @@ export const Contacts = () => {
                     
                     
                 </div>
-                <div className="w-full h-full">
-                    <ChatCard/>
+                <div className="flex flex-col items-center w-full h-full gap-1">
+                    {storeChat.listChatByMyUser ===null ? <span className="loading loading-spinner text-secondary"></span>:storeChat?.listChatByMyUser?.items?.length>0? storeChat?.listChatByMyUser?.items?.map((chat) => {
+                        console.log(chat.id)
+                        return <ChatCard chat={chat} key={chat.id}/>
+                    }): <p className="text-center">No tienes chats</p>}
                 </div>
             </div>
 
@@ -36,7 +39,7 @@ export const Contacts = () => {
                     <div className="flex items-center justify-center w-full p-3">
                         <input onChange={actionsChat.handleFindUserByUserName} name="findUserById" type="text" className="w-[70%] p-2 rounded" placeholder="Busca un usuario"/>
                     </div>
-                    <div className="flex justify-center w-full h-24 overflow-y-auto">
+                    <div className="flex flex-col justify-center w-full h-24 overflow-y-auto">
                         {storeChat.listFindUser.length>0? storeChat.listFindUser?.map((user) => {
                             return <CardFindUser user={user} key={user?.user?.id}/>
                         }) : <p className="text-center">No se encontraron usuarios</p>}

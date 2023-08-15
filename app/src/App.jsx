@@ -18,27 +18,12 @@ import { CreateBand } from "./views/CreateBand";
 import CreateVenue from "./views/CreateVenue";
 import { ChatView } from "./views/ChatView";
 
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-import 'firebase/firestore'
+
 
 
 
 function App() {
 
-  const firebaseConfig = {
-    apiKey: "AIzaSyAk9LQn7XfopymectYp-WVw-Uknb2WDL_o",
-    authDomain: "rider-f6f91.firebaseapp.com",
-    projectId: "rider-f6f91",
-    storageBucket: "rider-f6f91.appspot.com",
-    messagingSenderId: "51699454372",
-    appId: "1:51699454372:web:0d9e51c01d21044cd43131",
-    measurementId: "G-MEWYJSSFTP"
-  };
-  
-  // Initialize Firebase
-    const app = initializeApp(firebaseConfig);
-    const analytics = getAnalytics(app);
 
   return (
     <BrowserRouter basename="/">

@@ -1,6 +1,27 @@
+
 import {GrSend} from 'react-icons/gr'
 
+import useChat from '../../context/ChatContext';
+
+
 export const Chat = () => {
+
+
+    const {store, actions} = useChat()
+
+    
+    
+
+    
+
+
+//     pb.collection('messages').unsubscribe('RECORD_ID'); // remove all 'RECORD_ID' subscriptions
+//     pb.collection('messages').unsubscribe('*'); // remove all '*' topic subscriptions
+//  pb.collection('messages').unsubscribe(); // remove all subscriptions in the collection
+
+
+
+    
     return (
         <section className="h-full p-2 w-[80%] ">
             <div className="w-full h-full rounded-xl bg-slate-50/5">

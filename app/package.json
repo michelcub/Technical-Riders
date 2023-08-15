@@ -10,10 +10,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "firebase": "^10.1.0",
     "formik": "^2.4.2",
     "jwt-decode": "^3.1.2",
     "lottie-react": "^2.4.0",
+    "pocketbase": "^0.16.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hot-toast": "^2.4.1",

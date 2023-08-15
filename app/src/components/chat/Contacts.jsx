@@ -1,6 +1,13 @@
 import { ChatCard } from "./ChatCard"
+import { CardUserBand } from "../CardUserBand"
 
+import useChat from "../../context/ChatContext"
+import { CardFindUser } from "./CardFindUser"
 export const Contacts = () => {
+
+    const {store: storeChat, actions: actionsChat} = useChat()
+    
+
     return (
         <section className="w-[100%] md:w-[45%] lg:w-[30%] xl:w-[20%] full h-full p-2 overflow-hidden">
             <div className="w-full h-full rounded-xl bg-slate-50/5">
@@ -8,12 +15,36 @@ export const Contacts = () => {
                     <h2 className="">Contacts</h2>
                 </div>
                 <div className="flex justify-center w-full p-3">
-                    <input className="w-full p-1 text-xl text-black rounded bg-slate-200" type="text" />
+                    <div className="flex w-full gap-2">
+                        <input  className="w-[80%] p-2 text-xl text-black rounded bg-slate-200" type="text" />
+                        <button className=" w-[15%] btn btn-primary" onClick={()=>window.my_modal_3.showModal()}>+</button>
+                    </div>
+                    
+                    
                 </div>
                 <div className="w-full h-full">
                     <ChatCard/>
                 </div>
             </div>
+
+            
+            <dialog id="my_modal_3" className="modal">
+                <form method="dialog" className="text-black modal-box bg-slate-300">
+                    <button className="absolute btn btn-sm btn-circle btn-ghost right-2 top-2">✕</button>
+                    <h3 className="text-lg font-bold">Quieres crear un nuevo chat?</h3>
+                    <label htmlFor="findUserById"></label>
+                    <div className="flex items-center justify-center w-full p-3">
+                        <input onChange={actionsChat.handleFindUserByUserName} name="findUserById" type="text" className="w-[70%] p-2 rounded" placeholder="Busca un usuario"/>
+                    </div>
+                    <div className="flex justify-center w-full h-24 overflow-y-auto">
+                        {storeChat.listFindUser.length>0? storeChat.listFindUser?.map((user) => {
+                            return <CardFindUser user={user} key={user?.user?.id}/>
+                        }) : <p className="text-center">No se encontraron usuarios</p>}
+                    </div>
+                    
+                    
+                    </form>
+            </dialog>
         </section>
     )
 }

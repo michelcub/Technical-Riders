@@ -1,3 +1,5 @@
+![Captura de pantalla 2023-08-25 175429](https://github.com/michelcub/proyecto-final-4geeks/assets/49735520/fdb64f54-6ed4-4f5c-8804-d49d924283d3)
+
 # proyecto-final-4geeks
 
 Proyecto final de @michelcub, @RofinhoOo y @danilopgon

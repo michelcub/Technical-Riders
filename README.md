@@ -1,8 +1,7 @@
 ![Captura de pantalla 2023-08-25 175429](https://github.com/michelcub/proyecto-final-4geeks/assets/49735520/fdb64f54-6ed4-4f5c-8804-d49d924283d3)
 
-# proyecto-final-4geeks
-
-Proyecto final de @michelcub, @RofinhoOo y @danilopgon
+# Technical Riders
+Es una aplicacion social para la colaboracion entre bandas de musicos, promotores de slas de concierto y tecnicos de sonido, principalmente permite compartir los datos tecnicos requeridos para el concierto. Consta de un chat en tiempo real para la comunicacion entre profecionales y la posibilidad de gestionar bandas y salas, y poder compartir la informacion necesaria para que cada profesional realice su labor.
 
 ## Backend desde raiz:
 
